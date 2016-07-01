@@ -1,0 +1,1 @@
+xbuild ./Easyception.sln /p:DebugSymbols=False
