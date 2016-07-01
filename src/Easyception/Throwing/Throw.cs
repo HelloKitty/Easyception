@@ -15,11 +15,19 @@ namespace Easyception
 	public static class Throw<TExceptionType>
 		where TExceptionType : Exception, new() //we naturally constrain to exception because we want to throw this type
 	{
+		/// <summary>
+		/// Continues the semantic chain for <see cref="Throw{TExceptionType}"/>
+		/// using if-like semantics.
+		/// </summary>
 		public static Throw<TExceptionType>.IfSemanticChainer If { get; }
 
+		//We need this static ctor to populate If as soon as the type is accessed
+		//in a thread safe way.
+		/// <summary>
+		/// Initializes static members of the <see cref="Throw{TExceptionType}"/> type.
+		/// </summary>
 		static Throw()
 		{
-
 			//After all that we need to populate the IfSemanticChainer
 			//This is the only real reason anyone is accessing this class
 			//Read some comments below on why this is an instance and not a static
@@ -50,6 +58,10 @@ namespace Easyception
 			/// </summary>
 			private static readonly Func<string, TExceptionType> exceptionCtorWithMessage;
 
+			/// <summary>
+			/// Initializes static members of <see cref="IfSemanticChainer"/>
+			/// particularly the internal ctor Func properties.
+			/// </summary>
 			static IfSemanticChainer()
 			{
 				//We need a static ctor to prepare a compiled lambda for
@@ -67,6 +79,11 @@ namespace Easyception
 					throw new Exception($"Easyception type: {nameof(Throw<TExceptionType>)} failed to compile ctor lambda with field name {nameof(exceptionCtorWithMessage)}.");
 			}
 
+			/// <summary>
+			/// Creates a new <see cref="Func{TResult}"/> object that points to a parameterless ctor
+			/// method for the <typeparamref name="TExceptionType"/> type.
+			/// </summary>
+			/// <returns>A valid non-null <see cref="Func{TResult}"/> that produces new instances of <typeparamref name="TExceptionType"/>.</returns>
 			private static Func<TExceptionType> CreateParameterlessCtorFunc()
 			{
 				//We need to create a Lambda for the creation of this exception
@@ -75,6 +92,11 @@ namespace Easyception
 					.Compile();
 			}
 
+			/// <summary>
+			/// Creates a new <see cref="Func{T, TResult}"/> object that points to a ctor
+			/// method for the <typeparamref name="TExceptionType"/> type that takes a single string parameter.
+			/// </summary>
+			/// <returns>A valid non-null <see cref="Func{T, TResult}"/> that produces new instances of <typeparamref name="TExceptionType"/>.</returns>
 			private static Func<string, TExceptionType> CreateCtorFuncWithStringParameter()
 			{
 				ParameterExpression paramExpression = Expression.Parameter(typeof(string), "message");
