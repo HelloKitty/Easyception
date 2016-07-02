@@ -29,11 +29,27 @@ public class Demo
 
 The above example will throw an **InvalidOperationException** if the provided int **val** is negative. There are various other ways to throw using Throw<T>.If. Explore intellisense to get a feeling for the various methods.
 
+But wait! We have **special methods** depending on Throw<T>'s type T. Check out the example below that highlights special methods that are only available for certain types of T.
+
+```
+using Easyception;
+
+public class Demo
+{
+  public void TestMethod(List<int> obj)
+  {
+    Throw<ArgumentNullException>.If.IsNull(obj);
+  }
+}
+```
+
+The above example will throw an **ArgumentNullException** if the provided int **List<int>** is null. This **IsNull* method API is only available if T is ArgumentNullException in Throw<T>. Other exception types have methods like this also so check intellisense for them.
+
 ## Builds
 
 Available on a Nuget Feed: https://www.myget.org/F/hellokitty/api/v2 [![hellokitty MyGet Build Status](https://www.myget.org/BuildSource/Badge/hellokitty?identifier=48dd3f2a-4278-4376-b211-65ca50a5db76)](https://www.myget.org/)
 
-Offical Nuget: [TBA]
+Offical Nuget: https://www.nuget.org/packages/Easyception/
 
 ##Tests
 

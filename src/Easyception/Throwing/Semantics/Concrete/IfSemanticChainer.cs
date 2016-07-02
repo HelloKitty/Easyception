@@ -18,6 +18,7 @@ namespace Easyception
 	{
 		private IExceptionInstanceFactory<TExceptionType> exceptionFactoryService { get; }
 
+
 		public IfSemanticChainer(IExceptionInstanceFactory<TExceptionType> exceptionFactory)
 		{
 			if (exceptionFactory == null)
