@@ -49,7 +49,7 @@ The above example will throw an **ArgumentNullException** if the provided int **
 
 Available on a Nuget Feed: https://www.myget.org/F/hellokitty/api/v2 [![hellokitty MyGet Build Status](https://www.myget.org/BuildSource/Badge/hellokitty?identifier=48dd3f2a-4278-4376-b211-65ca50a5db76)](https://www.myget.org/)
 
-Offical Nuget: [TBA]
+Offical Nuget: https://www.nuget.org/packages/Easyception/
 
 ##Tests
 
