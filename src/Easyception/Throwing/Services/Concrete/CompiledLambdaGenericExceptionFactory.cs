@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace Easyception
 {
+	/// <summary>
+	/// Implements and provides <see cref="IExceptionInstanceFactory{TExceptionType}"/> functionality acting as a factory
+	/// for the specified <see cref="Exception"/> generic type <typeparamref name="TExceptionType"/>
+	/// </summary>
+	/// <typeparam name="TExceptionType">The <see cref="Type"/> of <see cref="Exception"/> to create.</typeparam>
 	internal class CompiledLambdaGenericExceptionFactory<TExceptionType> : IExceptionInstanceFactory<TExceptionType>
 		where TExceptionType : Exception, new()
 	{
