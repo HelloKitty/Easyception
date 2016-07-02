@@ -44,21 +44,5 @@ namespace Easyception
 			if (condition)
 				throw exceptionFactoryService.Create();
 		}
-
-		/// <summary>
-		/// Throws an exception of type <typeparamref name="TExceptionType"/>
-		/// if the provided <see cref="bool"/> <paramref name="condition"/> is true.
-		/// </summary>
-		/// <param name="condition">Indicates if an exception should be thrown.</param>
-		/// <param name="message">The message to provide to the exception if the <paramref name="condition"/> is true.</param>
-		/// <exception cref="TExceptionType">Throws a new instance of this exception if the <paramref name="condition"/> is true with the provided <paramref name="message"/>.</exception>
-		public void IsTrue(bool condition, string message)
-		{
-			//We simply check the condition and if it's true then
-			//we throw using the compiled lambda ctor func that includes
-			//the message parameter.
-			if (condition)
-				throw exceptionFactoryService.Create(message);
-		}
 	}
 }

@@ -19,13 +19,5 @@ namespace Easyception
 		/// </summary>
 		/// <returns>A new non-null instance of <typeparamref name="TExceptionType"/>.</returns>
 		TExceptionType Create();
-
-		/// <summary>
-		/// Creates a new instance of <see cref="Type"/> <typeparamref name="TExceptionType"/>
-		/// using the <see cref="Exception"/>'s string parameter constructor.
-		/// </summary>
-		/// <param name="message">The message to provide to the <see cref="Exception"/>'s ctor.</param>
-		/// <returns>A new non-null instance of <typeparamref name="TExceptionType"/>.</returns>
-		TExceptionType Create(string message);
 	}
 }

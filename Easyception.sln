@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ED248415
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Easyception", "src\Easyception\Easyception.csproj", "{684B995B-3C5D-456B-BBC5-10562D39DB70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Easyception.Tests", "tests\Easyception.Tests\Easyception.Tests.csproj", "{9A7AD95F-A8F6-41C2-B263-C5F5F51E09D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,11 +21,16 @@ Global
 		{684B995B-3C5D-456B-BBC5-10562D39DB70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{684B995B-3C5D-456B-BBC5-10562D39DB70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{684B995B-3C5D-456B-BBC5-10562D39DB70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A7AD95F-A8F6-41C2-B263-C5F5F51E09D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A7AD95F-A8F6-41C2-B263-C5F5F51E09D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A7AD95F-A8F6-41C2-B263-C5F5F51E09D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A7AD95F-A8F6-41C2-B263-C5F5F51E09D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{684B995B-3C5D-456B-BBC5-10562D39DB70} = {D58154DD-B8E3-422B-9D20-D021D9E0CBF8}
+		{9A7AD95F-A8F6-41C2-B263-C5F5F51E09D1} = {ED248415-F0C9-42E6-BC5B-3C8878C35740}
 	EndGlobalSection
 EndGlobal

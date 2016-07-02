@@ -1,0 +1,1 @@
+mono ./testrunner/NUnit.Console.3.0.1/tools/nunit3-console.exe ./Easyception.Tests/bin/Debug/Easyception.Tests.dll
