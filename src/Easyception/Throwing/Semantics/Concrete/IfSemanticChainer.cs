@@ -15,69 +15,20 @@ namespace Easyception
 	/// <summary>
 	/// Type provides if fluent chain-like semantics for users of
 	/// the <see cref="Throw{TExceptionType}"/> static type.
+	/// <typeparam name="TExceptionType">The <see cref="Type"/> of exception to throw.</typeparam>
 	/// </summary>
-	public class IfSemanticChainer<TExceptionType> : IIfSemanticChainer<TExceptionType>
+	internal class IfSemanticChainer<TExceptionType> : IIfSemanticChainer<TExceptionType>
 		where TExceptionType : Exception, new()
 	{
-		/// <summary>
-		/// Internal compiled lambda <see cref="Func{TResult}"/> that should produce
-		/// an exception of <see cref="Type"/> <typeparamref name="TExceptionType"/>.
-		/// </summary>
-		private static readonly Func<TExceptionType> exceptionCtorParameterless;
+		private IExceptionInstanceFactory<TExceptionType> exceptionFactoryService { get; }
 
-		/// <summary>
-		/// Internal compiled lambda <see cref="Func{T, TResult}"/> that should produce
-		/// an exception of <see cref="Type"/> <typeparamref name="TExceptionType"/>.
-		/// </summary>
-		private static readonly Func<string, TExceptionType> exceptionCtorWithMessage;
-
-		/// <summary>
-		/// Initializes static members of <see cref="IfSemanticChainer"/>
-		/// particularly the internal ctor Func properties.
-		/// </summary>
-		static IfSemanticChainer()
+		public IfSemanticChainer(IExceptionInstanceFactory<TExceptionType> exceptionFactory)
 		{
-			//We need a static ctor to prepare a compiled lambda for
-			//creating a new exception of TExceptionType.
-			//We need this for preformance reasons: http://www.marccostello.com/newing-up-t/
-			exceptionCtorParameterless = CreateParameterlessCtorFunc();
-			exceptionCtorWithMessage = CreateCtorFuncWithStringParameter();
+			if (exceptionFactory == null)
+				throw new ArgumentNullException(nameof(exceptionFactory),
+					$"{nameof(IfSemanticChainer<TExceptionType>)} must be provided a non-null instance of a the {nameof(IExceptionInstanceFactory<TExceptionType>)} service.");
 
-			//We should probably check this; would be a critical error though
-			if (exceptionCtorParameterless == null)
-				throw new Exception($"Easyception type: {nameof(IfSemanticChainer<TExceptionType>)} failed to compile parameterless ctor lambda with field name {nameof(exceptionCtorParameterless)}.");
-
-			//We should probably check this; would be a critical error though
-			if (exceptionCtorWithMessage == null)
-				throw new Exception($"Easyception type: {nameof(IfSemanticChainer<TExceptionType>)} failed to compile ctor lambda with field name {nameof(exceptionCtorWithMessage)}.");
-		}
-
-		/// <summary>
-		/// Creates a new <see cref="Func{TResult}"/> object that points to a parameterless ctor
-		/// method for the <typeparamref name="TExceptionType"/> type.
-		/// </summary>
-		/// <returns>A valid non-null <see cref="Func{TResult}"/> that produces new instances of <typeparamref name="TExceptionType"/>.</returns>
-		private static Func<TExceptionType> CreateParameterlessCtorFunc()
-		{
-			//We need to create a Lambda for the creation of this exception
-			return Expression
-				.Lambda<Func<TExceptionType>>(Expression.New(typeof(TExceptionType)))
-				.Compile();
-		}
-
-		/// <summary>
-		/// Creates a new <see cref="Func{T, TResult}"/> object that points to a ctor
-		/// method for the <typeparamref name="TExceptionType"/> type that takes a single string parameter.
-		/// </summary>
-		/// <returns>A valid non-null <see cref="Func{T, TResult}"/> that produces new instances of <typeparamref name="TExceptionType"/>.</returns>
-		private static Func<string, TExceptionType> CreateCtorFuncWithStringParameter()
-		{
-			ParameterExpression paramExpression = Expression.Parameter(typeof(string), "message");
-
-			//We need to create a Lambda for the creation of this exception with the basic string message
-			return Expression
-				.Lambda<Func<string, TExceptionType>>(Expression.New(typeof(TExceptionType).GetConstructor(new Type[] { typeof(string) }), paramExpression), paramExpression)
-				.Compile();
+			exceptionFactoryService = exceptionFactory;
 		}
 
 		/// <summary>
@@ -91,7 +42,7 @@ namespace Easyception
 			//We simply check the condition and if it's true then
 			//we throw using the compiled lambda ctor func
 			if (condition)
-				throw exceptionCtorParameterless();
+				throw exceptionFactoryService.Create();
 		}
 
 		/// <summary>
@@ -107,7 +58,7 @@ namespace Easyception
 			//we throw using the compiled lambda ctor func that includes
 			//the message parameter.
 			if (condition)
-				throw exceptionCtorWithMessage(message);
+				throw exceptionFactoryService.Create(message);
 		}
 	}
 }

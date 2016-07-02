@@ -31,7 +31,7 @@ namespace Easyception
 			//After all that we need to populate the IfSemanticChainer
 			//This is the only real reason anyone is accessing this class
 			//Read some comments below on why this is an instance and not a static
-			If = new IfSemanticChainer<TExceptionType>();
+			If = new IfSemanticChainer<TExceptionType>(new CompiledLambdaGenericExceptionFactory<TExceptionType>());
 		}
 	}
 }

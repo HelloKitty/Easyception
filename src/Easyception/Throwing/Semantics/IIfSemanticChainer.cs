@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Easyception
 {
+	/// <summary>
+	/// Contract for types that implement If semantic behaviour for fluent throwing.
+	/// </summary>
+	/// <typeparam name="TExceptionType">The <see cref="Type"/> of exception to throw.</typeparam>
 	public interface IIfSemanticChainer<TExceptionType>
 		where TExceptionType : Exception, new()
 	{
