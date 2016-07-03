@@ -22,10 +22,21 @@ namespace Easyception
 		/// <param name="obj">Reference object to be checked for null.</param>
 		/// <param name="message">Message to be provided to the <see cref="ArgumentException"/>.</param>
 		/// <exception cref="ArgumentException">Throws <see cref="ArgumentException"/> if <paramref name="obj"/> is null.</exception>
-		public static void IsTrue(this IIfSemanticChainer<ArgumentException> ifChainer, bool condition, string message)
+		public static IIfSemanticChainer<ArgumentException> Now(this IIfSemanticChainer<ArgumentException> ifChainer, string message)
 		{
-			if (condition)
+#if DEBUG
+			//We need to check this because someone may mess up and not call ?.Now(). Big preformance impact if they don't
+			if (ifChainer != null)
+				//Just throw with the provided arguments
 				throw new ArgumentException(message);
+			else
+				throw new InvalidOperationException($"You should not call Now when the chain is null. Use null-conditional operator like this: ?.Now(...)");
+#else
+			//We need to check this because someone may mess up and not call ?.Now(). Big preformance impact if they don't
+			if (ifChainer != null)
+				//Just throw with the provided arguments
+				throw new ArgumentException(message);
+#endif
 		}
 
 		/// <summary>
@@ -37,10 +48,21 @@ namespace Easyception
 		/// <param name="message">Message to be provided to the <see cref="ArgumentException"/>.</param>
 		/// <param name="paramName">Name of the parameter in the current scope of the call stack to be provided to the <see cref="ArgumentException"/>.</param>
 		/// <exception cref="ArgumentException">Throws <see cref="ArgumentException"/> if <paramref name="obj"/> is null.</exception>
-		public static void IsTrue(this IIfSemanticChainer<ArgumentException> ifChainer, bool condition, string message, string paramName)
+		public static void Now(this IIfSemanticChainer<ArgumentException> ifChainer, string message, string paramName)
 		{
-			if (condition)
+#if DEBUG
+			//We need to check this because someone may mess up and not call ?.Now(). Big preformance impact if they don't
+			if (ifChainer != null)
+				//Just throw with the provided arguments
 				throw new ArgumentException(message, paramName);
+			else
+				throw new InvalidOperationException($"You should not call Now when the chain is null. Use null-conditional operator like this: ?.Now(...)");
+#else
+			//We need to check this because someone may mess up and not call ?.Now(). Big preformance impact if they don't
+			if (ifChainer != null)
+				//Just throw with the provided arguments
+				throw new ArgumentException(message, paramName);
+#endif
 		}
 	}
 }

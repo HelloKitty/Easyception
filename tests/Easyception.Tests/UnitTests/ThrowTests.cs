@@ -17,7 +17,7 @@ namespace Easyception.Tests
 		public static void Test_That_Exception_Is_Thrown_When_If_Condition_Is_True()
 		{
 			//assert
-			Assert.Throws<Exception>(() => Throw<Exception>.If.IsTrue(true));
+			Assert.Throws<Exception>(() => Throw<Exception>.If.IsTrue(true)?.Now());
 		}
 
 		[Test]
@@ -40,7 +40,7 @@ namespace Easyception.Tests
 			Assert.IsTrue(typeof(Exception).IsAssignableFrom(exceptionType));
 
 			//assert
-			Assert.Throws(exceptionType, () => (typeof(Throw<>).MakeGenericType(exceptionType).GetProperty("If").GetValue(null, null) as IIfSemanticChainer).IsTrue(true));
+			Assert.Throws(exceptionType, () => (typeof(Throw<>).MakeGenericType(exceptionType).GetProperty("If").GetValue(null, null) as IIfSemanticChainer).IsTrue(true)?.Now());
 		}
 
 		private class TestException : Exception
