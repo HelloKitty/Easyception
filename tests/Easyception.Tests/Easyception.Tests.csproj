@@ -43,7 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTests\ThrowsArgNullExtTests.cs" />
+    <Compile Include="UnitTests\ExtensionTests\ThrowsArgExTests.cs" />
+    <Compile Include="UnitTests\ExtensionTests\ThrowsArgNullExtTests.cs" />
     <Compile Include="UnitTests\ThrowTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,24 +10,24 @@ namespace Easyception.Tests
 	public class ThrowsArgNullExtTests
 	{
 		[Test]
-		public static void Test_That_Null_IfChainer_Causes_NullRefEx()
+		public static void Test_That_Null_IfChainer_Doesnt_Cause_NullRefEx()
 		{
 			//assert
-			Assert.Throws<NullReferenceException>(() => (null as IIfSemanticChainer<ArgumentNullException>).IsNull(new object()));
+			Assert.DoesNotThrow(() => (null as IIfSemanticChainer<ArgumentNullException>).IsNull(new object()));
 		}
 
 		[Test]
-		public static void Test_That_Null_IfChainer_Causes_NullRefExOverload1()
+		public static void Test_That_Null_IfChainer_Doesnt_Throw_NullRefExOverload1()
 		{
 			//assert
-			Assert.Throws<NullReferenceException>(() => (null as IIfSemanticChainer<ArgumentNullException>).IsNull(new object(), ""));
+			Assert.DoesNotThrow(() => (null as IIfSemanticChainer<ArgumentNullException>).IsNull(new object(), ""));
 		}
 
 		[Test]
-		public static void Test_That_Null_IfChainer_Causes_NullRefExOverload2()
+		public static void Test_That_Null_IfChainer_Doesnt_Throw_NullRefExOverload2()
 		{
 			//assert
-			Assert.Throws<NullReferenceException>(() => (null as IIfSemanticChainer<ArgumentNullException>).IsNull(new object(), "", ""));
+			Assert.DoesNotThrow(() => (null as IIfSemanticChainer<ArgumentNullException>).IsNull(new object(), "", ""));
 		}
 
 		[Test]

@@ -29,11 +29,12 @@ namespace Easyception
 		public static void IsNull<TRefType>(this IIfSemanticChainer<ArgumentNullException> ifChainer, TRefType obj)
 			where TRefType : class
 		{
+			//We don't check anymore if ifCHainer is null. It shouldn't be and is wasted perf
 			//Check if the ifChainer is null.
-			Throw<NullReferenceException>.If.IsTrue(ifChainer == null);
+			//Throw<NullReferenceException>.If.IsTrue(ifChainer == null);
 
-			//Delegate the throwing logic in this case to the ifChainer
-			ifChainer.IsTrue(obj == null);
+			if (obj == null)
+				throw new ArgumentNullException();
 		}
 
 		/// <summary>
@@ -48,10 +49,11 @@ namespace Easyception
 		public static void IsNull<TRefType>(this IIfSemanticChainer<ArgumentNullException> ifChainer, TRefType obj, string paramName)
 			where TRefType : class
 		{
+			//We don't check anymore if ifCHainer is null. It shouldn't be and is wasted perf
 			//Check if the ifChainer is null.
-			Throw<NullReferenceException>.If.IsTrue(ifChainer == null);
+			//Throw<NullReferenceException>.If.IsTrue(ifChainer == null);
 
-			if(obj == null)
+			if (obj == null)
 				//Just throw with the provided arguments
 				throw new ArgumentNullException(paramName);
 		}
@@ -69,10 +71,11 @@ namespace Easyception
 		public static void IsNull<TRefType>(this IIfSemanticChainer<ArgumentNullException> ifChainer, TRefType obj, string paramName, string message)
 			where TRefType : class
 		{
+			//We don't check anymore if ifCHainer is null. It shouldn't be and is wasted perf
 			//Check if the ifChainer is null.
-			Throw<NullReferenceException>.If.IsTrue(ifChainer == null);
+			//Throw<NullReferenceException>.If.IsTrue(ifChainer == null);
 
-			if(obj == null)
+			if (obj == null)
 				//Just throw with the provided arguments
 				throw new ArgumentNullException(paramName, message);
 		}
