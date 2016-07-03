@@ -1,11 +1,12 @@
 # Easyception
 
-A library that provides a fluent API for managing exceptions.
+A library that provides a fluent API for managing exceptions with C# 6. (Must have C# 6 to use the API)
 
 ## Setup
 
 To use this project you'll first need a couple of things:
   - Visual Studio 2015
+  - C# 6
 
 ## How To Use
 
@@ -15,6 +16,10 @@ Using Easyception is easy. The below sections will dicuss how to utilize the Eas
 
 Throwing exceptions using Easyception is done using semantics that feel like an English sentence. The below example will show how to do this using the most basic version of the **Throw<T>** API to throw an InvalidOperationException.
 
+If you are unfamilar with the ?. operator refer to this MSDN article on null-conditionals: https://msdn.microsoft.com/en-us/library/dn986595.aspx
+
+It is absolutely **critical** that you use **?.** for performance reasons. Non-extension version of Now() will throw exceptions when you don't want them if you don't use **?.**
+
 ```
 using Easyception;
 
@@ -22,7 +27,7 @@ public class Demo
 {
   public void TestMethod(int val)
   {
-    Throw<InvalidOperationException>.If.IsTrue(val < 0);
+    Throw<InvalidOperationException>.If.IsTrue(val < 0)?.Now();
   }
 }
 ```
@@ -38,7 +43,7 @@ public class Demo
 {
   public void TestMethod(List<int> obj)
   {
-    Throw<ArgumentNullException>.If.IsNull(obj);
+    Throw<ArgumentNullException>.If.IsNull(obj)?.Now();
   }
 }
 ```
