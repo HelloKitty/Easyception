@@ -43,6 +43,7 @@
     <Compile Include="Throwing\Semantics\IIfSemanticChainer.cs" />
     <Compile Include="Throwing\Services\Concrete\CompiledLambdaGenericExceptionFactory.cs" />
     <Compile Include="Throwing\Services\IExceptionInstanceFactory.cs" />
+    <Compile Include="Throwing\Services\IThrowable.cs" />
     <Compile Include="Throwing\Throw.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

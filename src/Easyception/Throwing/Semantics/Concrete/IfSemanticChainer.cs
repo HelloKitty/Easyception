@@ -16,8 +16,7 @@ namespace Easyception
 	internal class IfSemanticChainer<TExceptionType> : IIfSemanticChainer<TExceptionType>
 		where TExceptionType : Exception, new()
 	{
-		private IExceptionInstanceFactory<TExceptionType> exceptionFactoryService { get; }
-
+		internal IExceptionInstanceFactory<TExceptionType> exceptionFactoryService { get; }
 
 		public IfSemanticChainer(IExceptionInstanceFactory<TExceptionType> exceptionFactory)
 		{
@@ -34,12 +33,32 @@ namespace Easyception
 		/// </summary>
 		/// <param name="condition">Indicates if an exception should be thrown.</param>
 		/// <exception cref="TExceptionType">Throws a new parameterless instance of this exception if the <paramref name="condition"/> is true.</exception>
-		public void IsTrue(bool condition)
+		public IIfSemanticChainer<TExceptionType> IsTrue(bool condition)
 		{
 			//We simply check the condition and if it's true then
 			//we throw using the compiled lambda ctor func
 			if (condition)
-				throw exceptionFactoryService.Create();
+				return this;
+			else
+				return null;
+		}
+		
+		/// <summary>
+		/// When called throws an <see cref="Exception"/> of <see cref="Type"/>
+		/// <typeparamref name="TExceptionType"/>.
+		/// </summary>
+		public void Now()
+		{
+			//Just throw
+			throw exceptionFactoryService.Create();
+		}
+
+		IIfSemanticChainer IIfSemanticChainer.IsTrue(bool condition)
+		{
+			if (condition)
+				return this;
+			else
+				return null;
 		}
 	}
 }
