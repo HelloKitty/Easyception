@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Easyception;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,14 @@ namespace Easyception.Tests
 		public static void Test_That_Null_IfChainer_Doesnt_Throw_NullRefExOverload1()
 		{
 			//assert
-			Assert.DoesNotThrow(() => (null as IIfSemanticChainer<ArgumentNullException>).IsNull(new object(), ""));
+			Assert.DoesNotThrow(() => (null as IIfSemanticChainer<ArgumentNullException>).IsNull(new object())?.Now(""));
 		}
 
 		[Test]
 		public static void Test_That_Null_IfChainer_Doesnt_Throw_NullRefExOverload2()
 		{
 			//assert
-			Assert.DoesNotThrow(() => (null as IIfSemanticChainer<ArgumentNullException>).IsNull(new object(), "", ""));
+			Assert.DoesNotThrow(() => (null as IIfSemanticChainer<ArgumentNullException>).IsNull(new object())?.Now("", ""));
 		}
 
 		[Test]
@@ -37,7 +38,7 @@ namespace Easyception.Tests
 			ICollection<int> testObj = null;
 
 			//assert
-			Assert.Throws<ArgumentNullException>(() => Throw<ArgumentNullException>.If.IsNull(testObj));
+			Assert.Throws<ArgumentNullException>(() => Throw<ArgumentNullException>.If.IsNull(testObj)?.Now());
 		}
 
 		[Test]
@@ -47,7 +48,7 @@ namespace Easyception.Tests
 			ICollection<int> testObj = null;
 
 			//assert
-			Assert.Throws<ArgumentNullException>(() => Throw<ArgumentNullException>.If.IsNull(testObj, ""));
+			Assert.Throws<ArgumentNullException>(() => Throw<ArgumentNullException>.If.IsNull(testObj)?.Now(""));
 		}
 
 		[Test]
@@ -57,7 +58,7 @@ namespace Easyception.Tests
 			ICollection<int> testObj = null;
 
 			//assert
-			Assert.Throws<ArgumentNullException>(() => Throw<ArgumentNullException>.If.IsNull(testObj, "", ""));
+			Assert.Throws<ArgumentNullException>(() => Throw<ArgumentNullException>.If.IsNull(testObj)?.Now("", ""));
 		}
 
 		//Testing that it doesn't throw on non-null
@@ -79,7 +80,7 @@ namespace Easyception.Tests
 			ICollection<int> testObj = new List<int>();
 
 			//assert
-			Assert.DoesNotThrow(() => Throw<ArgumentNullException>.If.IsNull(testObj, ""));
+			Assert.DoesNotThrow(() => Throw<ArgumentNullException>.If.IsNull(testObj)?.Now(""));
 		}
 
 		[Test]
@@ -89,7 +90,7 @@ namespace Easyception.Tests
 			ICollection<int> testObj = new List<int>();
 
 			//assert
-			Assert.DoesNotThrow(() => Throw<ArgumentNullException>.If.IsNull(testObj, "", ""));
+			Assert.DoesNotThrow(() => Throw<ArgumentNullException>.If.IsNull(testObj)?.Now());
 		}
 
 		[Test]
@@ -101,7 +102,7 @@ namespace Easyception.Tests
 			//act
 			try
 			{
-				Throw<ArgumentNullException>.If.IsNull(testObj, nameof(testObj));
+				Throw<ArgumentNullException>.If.IsNull(testObj)?.Now(nameof(testObj));
 			}
 			catch(ArgumentNullException e)
 			{
@@ -119,7 +120,7 @@ namespace Easyception.Tests
 			//act
 			try
 			{
-				Throw<ArgumentNullException>.If.IsNull(testObj, nameof(testObj), nameof(Test_That_Thrown_Exception_Contains_Provided_InformationOverload2));
+				Throw<ArgumentNullException>.If.IsNull(testObj)?.Now(nameof(testObj), nameof(Test_That_Thrown_Exception_Contains_Provided_InformationOverload2));
 			}
 			catch (ArgumentNullException e)
 			{

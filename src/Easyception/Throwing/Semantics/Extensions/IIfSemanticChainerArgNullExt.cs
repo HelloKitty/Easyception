@@ -26,15 +26,14 @@ namespace Easyception
 		/// <param name="ifChainer">The semantic if object.</param>
 		/// <param name="obj">Reference object to be checked for null.</param>
 		/// <exception cref="ArgumentNullException">Throws <see cref="ArgumentNullException"/> if <paramref name="obj"/> is null.</exception>
-		public static void IsNull<TRefType>(this IIfSemanticChainer<ArgumentNullException> ifChainer, TRefType obj)
+		public static IIfSemanticChainer<ArgumentNullException> IsNull<TRefType>(this IIfSemanticChainer<ArgumentNullException> ifChainer, TRefType obj)
 			where TRefType : class
 		{
-			//We don't check anymore if ifCHainer is null. It shouldn't be and is wasted perf
-			//Check if the ifChainer is null.
-			//Throw<NullReferenceException>.If.IsTrue(ifChainer == null);
-
+			//The idea here is we'll chain using ?. to an extension method for Now()
 			if (obj == null)
-				throw new ArgumentNullException();
+				return ifChainer;
+			else
+				return null;
 		}
 
 		/// <summary>
@@ -46,16 +45,21 @@ namespace Easyception
 		/// <param name="obj">Reference object to be checked for null.</param>
 		/// <param name="paramName">Name of the parameter in the current scope of the call stack.</param>
 		/// <exception cref="ArgumentNullException">Throws <see cref="ArgumentNullException"/> if <paramref name="obj"/> is null.</exception>
-		public static void IsNull<TRefType>(this IIfSemanticChainer<ArgumentNullException> ifChainer, TRefType obj, string paramName)
-			where TRefType : class
+		public static void Now(this IIfSemanticChainer<ArgumentNullException> ifChainer, string paramName)
 		{
-			//We don't check anymore if ifCHainer is null. It shouldn't be and is wasted perf
-			//Check if the ifChainer is null.
-			//Throw<NullReferenceException>.If.IsTrue(ifChainer == null);
-
-			if (obj == null)
+#if DEBUG
+			//We need to check this because someone may mess up and not call ?.Now(). Big preformance impact if they don't
+			if (ifChainer != null)
 				//Just throw with the provided arguments
 				throw new ArgumentNullException(paramName);
+			else
+				throw new InvalidOperationException($"You should not call Now when the chain is null. Use null-conditional operator like this: ?.Now(...)");
+#else
+			//We need to check this because someone may mess up and not call ?.Now(). Big preformance impact if they don't
+			if (ifChainer != null)
+				//Just throw with the provided arguments
+				throw new ArgumentNullException(paramName);
+#endif
 		}
 
 		/// <summary>
@@ -68,16 +72,21 @@ namespace Easyception
 		/// <param name="paramName">Name of the parameter in the current scope of the call stack to be provided to the <see cref="ArgumentNullException"/>.</param>
 		/// <param name="message">Message to be provided to the <see cref="ArgumentNullException"/>.</param>
 		/// <exception cref="ArgumentNullException">Throws <see cref="ArgumentNullException"/> if <paramref name="obj"/> is null.</exception>
-		public static void IsNull<TRefType>(this IIfSemanticChainer<ArgumentNullException> ifChainer, TRefType obj, string paramName, string message)
-			where TRefType : class
+		public static void Now(this IIfSemanticChainer<ArgumentNullException> ifChainer, string paramName, string message)
 		{
-			//We don't check anymore if ifCHainer is null. It shouldn't be and is wasted perf
-			//Check if the ifChainer is null.
-			//Throw<NullReferenceException>.If.IsTrue(ifChainer == null);
-
-			if (obj == null)
+#if DEBUG
+			//We need to check this because someone may mess up and not call ?.Now(). Big preformance impact if they don't
+			if (ifChainer != null)
 				//Just throw with the provided arguments
 				throw new ArgumentNullException(paramName, message);
+			else
+				throw new InvalidOperationException($"You should not call Now when the chain is null. Use null-conditional operator like this: ?.Now(...)");
+#else
+			//We need to check this because someone may mess up and not call ?.Now(). Big preformance impact if they don't
+			if (ifChainer != null)
+				//Just throw with the provided arguments
+				throw new ArgumentNullException(paramName, message);
+#endif
 		}
 	}
 }
