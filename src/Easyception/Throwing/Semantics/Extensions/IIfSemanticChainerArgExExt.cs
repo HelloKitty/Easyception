@@ -36,6 +36,8 @@ namespace Easyception
 			if (ifChainer != null)
 				//Just throw with the provided arguments
 				throw new ArgumentException(message);
+			else
+				return ifChainer;
 #endif
 		}
 
